@@ -1,13 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import mongoose from 'mongoose'
 
 export default function Home() {
-  console.log(process.env.MONGO_DB,process.env.NEXT_PUBLIC_MARTIN)
   return (
     <>
       <Head>
@@ -28,9 +24,8 @@ export default function Home() {
 
 
 export async function getStaticProps () {
-  console.log(process.env.MONGO_DB,process.env.MY_APP)
-  console.log("martin")
-  
+
+  await mongoose.connect(process.env.MONGO_DB).then(()=>console.log('connected')).catch(err=>console.log(err))
   return {
     props:{
       mongo:"connected"
