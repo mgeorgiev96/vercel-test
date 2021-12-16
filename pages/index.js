@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import mongoose from 'mongoose'
+import {useSession,signIn,signOut} from 'next-auth/react'
 
 export default function Home() {
+  const {data:session} = useSession()
+  console.log(session ? session.user.email : "marks")
   return (
     <>
       <Head>
@@ -17,6 +19,9 @@ export default function Home() {
         <Link href="/ninjas">
         <a className={styles.btn}>See Ninja Listing</a>
         </Link>
+        {
+          session ? <p>{session.user.email}<button onClick={()=>signOut()} className={styles.btn} style={{cursor:'pointer'}}>Logout</button></p>  : <button onClick={()=>signIn()} className={styles.btn} style={{cursor:'pointer'}}>Login</button>
+        }
       </div>
     </>
   )
