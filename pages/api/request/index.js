@@ -1,8 +1,9 @@
 
 const User = require('../../../models/model')
-import dbConnection from '../../../utils/mongoDB'
-dbConnection(process.env.MONGO_DB)
+const mongoose = require("mongoose")
+
 export default async function getData (req,res){
+    await mongoose.connect(process.env.MONGO_DB)
     await User.findOne({username:"martin"}).then(async user=>{
         if(user){
             res.send("already created")
