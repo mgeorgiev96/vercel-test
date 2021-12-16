@@ -23,9 +23,7 @@ export default function Home() {
 }
 
 
-export async function getStaticProps () {
-
-  await mongoose.connect(process.env.MONGO_DB).then(()=>console.log('connected'))
+export function getStaticProps () {
   return {
     props:{
       mongo:"connected"

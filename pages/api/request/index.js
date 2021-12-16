@@ -2,7 +2,7 @@
 const User = require('../../../models/model')
 const mongoose = require("mongoose")
 export default async function getData (req,res){
-    console.log(mongoose.connection)
+    mongoose.connect(process.env.MONGO_DB).then(()=>console.log("connected"))
     await User.findOne({username:"martin"}).then(async user=>{
         if(user){
             res.send("already created")
@@ -13,6 +13,6 @@ export default async function getData (req,res){
             }).save()
         }
     }).catch(err=>console.log(err))
-
+    await mongoose.disconnect()
     res.end()
 }
